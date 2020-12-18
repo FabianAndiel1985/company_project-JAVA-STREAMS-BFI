@@ -62,36 +62,22 @@ public class Verwaltung implements VerwaltungsInterface {
 			 verwaltungService.writeNamesToFile(mitarbeiternamen, filePath);
 			 verwaltungService.readNamesFromFile(filePath);
 			 
+			 List<Mitarbeiter> meisteMitarbeiter = verwaltungService.getMeisteMitarbeiter(verwaltung);
+			 
+			 Path serFilePath = verwaltungService.createFile("Angestelltenliste.ser");
+			 verwaltungService.writeMitarbeiterToFile(meisteMitarbeiter,serFilePath);
+			 
 		} 
 		
 		catch (FileAlreadyExistsException e) {
 			System.out.println("Please delete existing files Angestelltenliste.ser and Angestelltenliste.txt and try again");
-		}
+			e.printStackTrace();		}
 		
 		catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		
-		List<Mitarbeiter> meisteMitarbeiter = verwaltungService.getMeisteMitarbeiter(verwaltung);
-		
-//		System.out.println(meisteMitarbeiter);
-		
-		Path serFilePath = null;
-
-		try {
-			serFilePath = verwaltungService.createFile("Angestelltenliste.ser");
-			verwaltungService.writeMitarbeiterToFile(meisteMitarbeiter,serFilePath);
-		} 
-		
-		catch (FileAlreadyExistsException e) {
-			System.out.println("Please delete existing files Angestelltenliste.ser and Angestelltenliste.txt and try again");
-		}
-		
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 	}
 		
 		
